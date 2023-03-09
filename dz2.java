@@ -1,3 +1,9 @@
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Arrays;
+
 // Дана строка (получение через обычный текстовый файл!!!)
 
 // "фамилия":"Иванов","оценка":"5","предмет":"Математика"
@@ -11,12 +17,37 @@
 // Студент Петрова получил 4 по предмету Информатика.
 // Студент Краснов получил 5 по предмету Физика.
 
-
 public class dz2 {
     public static void main(String[] args) {
-        
+        File file = new File("file1.txt");
+        StringBuilder sb = new StringBuilder();
+
+        try {
+            FileReader fr = new FileReader(file);
+            char[] a = new char[(int) file.length()];
+            fr.read(a);
+            for (char c : a) {
+                sb.append(c);
+            }
+            fr.close();
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        change_words(sb);
     }
 
+    public static void change_words(StringBuilder sb) {
+        String str = sb.toString();
+        str = str.replace('"', (char) (' '));
+        String[] str1 = str.split(",");
 
-    
+        String res = Arrays.toString(str1);
+        res = res.replace("фамилия :", "Студент").replace(",  оценка :", "получил").replace(",  предмет :",
+                "по предмету");
+        res = res.replace("[ ", "").replace("]", "");
+        res = res.replace("", "").replace(" Ст", "Ст").replace(" Ст", "Ст").replace("ка", "ка.");
+        System.out.println(res);
+    }
+
 }
