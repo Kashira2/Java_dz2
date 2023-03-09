@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Array;
@@ -8,14 +9,14 @@ import java.util.Arrays;
 
 public class dz1 {
     public static void main(String[] args) {
-        int[] arr = new int[] { 4, 2, 7, 1, 8, 3, 6, 5 };
-
+        int[] arr = new int[] { 4, 2, 6, 1, 8, 7, 9, 5, 3, 16, 15, 56 };
+        File file = new File("log.txt");
         StringBuilder sb = new StringBuilder();
 
-        name(arr, sb);
+        name(arr, sb, file);
     }
 
-    public static void name(int[] arr, StringBuilder sb) {
+    public static void name(int[] arr, StringBuilder sb, File file) {
         int temp = 0;
         for (int j = 0; j < arr.length - 1 - j; j++) {
             for (int i = 0; i < arr.length - 1; i++) {
@@ -23,17 +24,23 @@ public class dz1 {
                     temp = arr[i];
                     arr[i] = arr[i + 1];
                     arr[i + 1] = temp;
-                    sb.append(Arrays.toString(arr));
                     try {
-                        FileWriter fw = new FileWriter("log.txt", false);
-                        fw.write(sb.toString());
-                        
+                        FileWriter fw = new FileWriter(file, true);
+                        fw.write(Arrays.toString(arr));
+                        fw.write("\n");
                         fw.close();
                     } catch (IOException ex) {
                         System.out.println(ex.getMessage());
                     }
                 }
             }
+        }
+        try {
+            FileWriter fw = new FileWriter(file, true);
+            fw.write("\n");
+            fw.close();
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
         }
     }
 }
