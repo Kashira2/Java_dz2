@@ -38,15 +38,13 @@ public class dz2 {
     }
 
     public static void change_words(StringBuilder sb) {
-        String str = sb.toString();
-        str = str.replace('"', (char) (' '));
-        String[] str1 = str.split(",");
-
-        String res = Arrays.toString(str1);
-        res = res.replace("фамилия :", "Студент").replace(",  оценка :", "получил").replace(",  предмет :",
-                "по предмету");
-        res = res.replace("[ ", "").replace("]", "");
-        res = res.replace("", "").replace(" Ст", "Ст").replace(" Ст", "Ст").replace("ка", "ка.");
+        String res = sb.toString();
+        res = res.replace('"', (char) (' ')).replace(",", "")
+                .replace("  ", " ").replace("фамилия :", "Студент")
+                .replace("оценка :", "получил").replace("предмет :", "по предмету")
+                .replace("[ ", "").replace("]", "")
+                .replace("", "").replace(" Ст", "Ст")
+                .replace(" Ст", "Ст").replace("ка", "ка.");
         System.out.println(res);
     }
 
