@@ -1,16 +1,22 @@
 // дополнительно. К калькулятору из предыдущего дз добавить логирование.
 // 1 + 3 = 4
 // 4 + 3 = 7
-
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.System.Logger;
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.logging.*;
 
 public class dz3 {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException{
+        Logger ll = Logger.getLogger(dz3.class.getName());
+        String logsPath = "logcalc.txt";
+        FileHandler fh = new FileHandler(logsPath, true);
+        ll.addHandler(fh);
+        SimpleFormatter formatter = new SimpleFormatter();
+        // XMLFormatter form = new XMLFormatter();
+        fh.setFormatter(formatter);
+
         
         Scanner reader = new Scanner(System.in);
         System.out.printf("Введите первое число: ");
@@ -34,14 +40,6 @@ public class dz3 {
         System.out.println(res);
         StringBuilder sb = new StringBuilder();
         sb.append(num1 + " " + sign + " " + num2 + " = " + res);
-        try{
-            FileWriter fw = new FileWriter("logcalc.txt", true);
-            fw.write(sb.toString());
-            fw.write("\n");
-            fw.close();
-        }
-        catch(IOException e){
-            System.out.println("Найдена ошибка");
-        }
+        ll.log(Level.INFO, sb.toString());
     }
 }
